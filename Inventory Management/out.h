@@ -24,6 +24,8 @@ private slots:
 
     void on_Search_clicked();
 
+    void on_Out_rejected();
+
 private:
     Ui::Out *ui;
     Storage storage;

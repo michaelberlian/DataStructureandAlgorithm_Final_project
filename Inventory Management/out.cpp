@@ -76,3 +76,8 @@ void Out::on_Search_clicked()
         ui->error->setText("ID NOT FOUND");
     }
 }
+
+void Out::on_Out_rejected()
+{
+    on_Cancel_clicked();
+}

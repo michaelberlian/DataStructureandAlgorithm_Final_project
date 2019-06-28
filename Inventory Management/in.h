@@ -25,6 +25,8 @@ private slots:
     void on_Search_clicked();
 
     void closeEvent(QCloseEvent *);
+    void on_In_rejected();
+
 private:
     Ui::In *ui;
     Storage storage;

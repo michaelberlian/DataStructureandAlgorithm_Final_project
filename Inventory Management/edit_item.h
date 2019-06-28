@@ -26,6 +26,8 @@ private slots:
 
     void closeEvent(QCloseEvent *);
 
+    void on_Edit_item_rejected();
+
 private:
     Ui::Edit_item *ui;
     Storage storage;

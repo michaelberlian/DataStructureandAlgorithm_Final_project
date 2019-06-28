@@ -68,3 +68,8 @@ void Edit_item::on_Search_clicked()
         ui->error->setText("ID NOT FOUND");
     }
 }
+
+void Edit_item::on_Edit_item_rejected()
+{
+    on_Cancel_clicked();
+}

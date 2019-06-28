@@ -70,3 +70,8 @@ void In::on_Search_clicked()
         ui->error->setText("ID NOT FOUND");
     }
 }
+
+void In::on_In_rejected()
+{
+    on_Cancel_clicked();
+}

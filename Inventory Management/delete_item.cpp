@@ -71,3 +71,8 @@ void Delete_item::on_Search_clicked()
         ui->error->setText("ID NOT FOUND");
     }
 }
+
+void Delete_item::on_Delete_item_rejected()
+{
+    on_Cancel_clicked();
+}
