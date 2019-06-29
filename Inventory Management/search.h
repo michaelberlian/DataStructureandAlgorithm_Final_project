@@ -25,9 +25,7 @@ private slots:
 private:
     Ui::Search *ui;
     Storage storage;
-    enum colomn{
-        ID,NAME,PRICE,QTY
-    };
+
 };
 
 #endif // SEARCH_H

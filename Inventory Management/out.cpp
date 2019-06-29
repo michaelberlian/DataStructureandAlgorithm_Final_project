@@ -9,6 +9,7 @@ Out::Out(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Out)
 {
+    // read files
     ui->setupUi(this);
     bool open = storage.read("source.txt");
     if (!open){
@@ -23,6 +24,7 @@ Out::~Out()
 
 void Out::on_OK_clicked()
 {
+    // validations
     if (ui->Id->text() != "" && ui->Name->text()!= "" && ui->Input->text()!= "" && ui->Qty->text()!=""){
         if (QString::fromStdString(now->get_id()) == ui->Id->text()){
             if (ui->Qty->text().toInt() >= ui->Input->text().toInt()){
@@ -49,19 +51,23 @@ void Out::on_OK_clicked()
         ui->error->setText("Check Input");
     }
 }
-
+// x clicked
 void Out::closeEvent(QCloseEvent *){
     on_Cancel_clicked();
 }
 
+//cancel button clicked
 void Out::on_Cancel_clicked()
 {
+    // write the storage into txt file
     storage.write("source.txt");
+    // close the window
     close();
 }
 
 void Out::on_Search_clicked()
 {
+    // search the item
     ui->error->setText("");
     string id = ui->Id->text().toStdString();
     ui->Name->setText("");
@@ -76,7 +82,7 @@ void Out::on_Search_clicked()
         ui->error->setText("ID NOT FOUND");
     }
 }
-
+// on esc pressed
 void Out::on_Out_rejected()
 {
     on_Cancel_clicked();

@@ -52,6 +52,9 @@ class Storage{
     private:
         vector<Item> item;
     public:
+        // replace a specific character like find and replace
+        // ex my_replace("motorcycle" , "o" , "i")
+        // mitircycle
         void my_replace(string &str,const string& oldstr,const string& newstr){
             string::size_type pos = 0u;
             while ((pos = str.find(oldstr,pos))!= string::npos){
@@ -59,13 +62,17 @@ class Storage{
                 pos += newstr.length();
             }
         }
+        // read text
         bool read(string txt){
             string id,name,price,qty;
             ifstream file;
             file.open(txt);
             if (file.is_open()){
                 while (file >> id >> name >> price >> qty){
+                    // to prevent error we change the space in the name to "-" when written to the file
+                    // here we change it again to space from "-"
                     my_replace(name,"-"," ");
+                    // add the item to the storage vector
                     add(Item(id,name,stoi(price),stoi(qty)));
                 }
                 file.close();
@@ -75,6 +82,7 @@ class Storage{
                 return false;
             }
         }
+        // write text
         void write(string txt){
             string id,name,price,qty;
             ofstream file;
@@ -83,6 +91,7 @@ class Storage{
                 for (vector<Item>::iterator it = item.begin(); it != item.end(); it++){
                     id = it->get_id();
                     name = it->get_name();
+                    // we prevent error to so we change the name that contain space to "-"
                     my_replace(name," ","-");
                     price = to_string(it->get_price());
                     qty = to_string(it->get_quantity());
@@ -93,32 +102,43 @@ class Storage{
         }
 
         void del(string id){
+            // deleting elements on the storage vector by id
             for (int i = 0 ; i < item.size() ; i++){
                 if (item[i].get_id() == id){
                     item.erase(item.begin()+i);
                 }
             }
         }
+
         void add (Item a){
+            // pushing a new item into the storage vector
             this->item.push_back (a);
         }
+
         bool find_id(string id){
+            // search if the id exist in the storage vector
             for (int i = 0 ; i < item.size() ; i++){
                 if (item[i].get_id() == id){
+                    // found
                     return true;
                 }
             }
+            // not found
             return false;
         }
+
         Item* get_id(string id){
+            // return the pointer of the Item if match the id
             for (int i = 0 ; i < item.size() ; i++){
                 if (item[i].get_id() == id){
                     return &item[i];
                 }
             }
         }
+
         void add_stock(string id, int quantity){
             int i;
+            // Stock in
             for (i = 0 ; i < item.size() ; i++){
                 if (item[i].get_id() == id){
                     item[i].set_quantity(item[i].get_quantity() + quantity);
@@ -128,6 +148,7 @@ class Storage{
         }
         void sell_stock(string id, int quantity){
             int i;
+            // Stock out
             for (i = 0 ; i < item.size() ; i++){
                 if (item[i].get_id() == id ){
                     item[i].set_quantity(item[i].get_quantity() - quantity);
@@ -136,9 +157,11 @@ class Storage{
             }
         }
         vector<Item> get_vector(){
+            // return the whole storage vector
             return item;
         }
         void empty(){
+            // empty the vector
             item.clear();
         }
 };

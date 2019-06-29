@@ -11,6 +11,7 @@ Edit_item::Edit_item(QWidget *parent) :
     ui(new Ui::Edit_item)
 {
     ui->setupUi(this);
+    // read the files
     bool open = storage.read("source.txt");
     if (!open){
         ui->error->setText("cannot open the source file");
@@ -25,6 +26,7 @@ Edit_item::~Edit_item()
 
 void Edit_item::on_Save_clicked()
 {
+    // validations
     if (ui->Id->text() != "" && ui->Name->text()!= "" && ui->Price->text()!= ""){
         if (QString::fromStdString(now->get_id()) == ui->Id->text()){
             now->set_name(ui->Name->text().toStdString());
@@ -44,20 +46,25 @@ void Edit_item::on_Save_clicked()
         ui->error->setText("Check Input");
     }
 }
-
+// x clicked
 void Edit_item::closeEvent(QCloseEvent *){
     on_Cancel_clicked();
 }
-
+// cancel button clicked
 void Edit_item::on_Cancel_clicked()
 {
+    // write the storage into txt file
     storage.write("source.txt");
+    // close the window
     close();
 }
 
 void Edit_item::on_Search_clicked()
 {
+    ui->Name->setText("");
+    ui->Price->setText("");
     ui->error->setText("");
+    // find the item
     string id = ui->Id->text().toStdString();
     if (storage.find_id(id)){
         now = storage.get_id(id);
@@ -68,7 +75,7 @@ void Edit_item::on_Search_clicked()
         ui->error->setText("ID NOT FOUND");
     }
 }
-
+// esc pressed
 void Edit_item::on_Edit_item_rejected()
 {
     on_Cancel_clicked();
